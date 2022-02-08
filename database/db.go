@@ -19,6 +19,11 @@ func Init() {
 		panic(err)
 	}
 
+	db = _db
+	if err := db.AutoMigrate(&models.Branch{}); err != nil {
+		panic(err)
+	}
+
 }
 
 func GetDB() *gorm.DB {

@@ -1,10 +1,9 @@
 package main
 
 import (
-	"net/http"
-
+	"github.com/brennschlus/house_points_server/controllers"
 	"github.com/brennschlus/house_points_server/database"
-	"github.com/brennschlus/house_points_server/models"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,16 +14,11 @@ func main() {
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "dangerous zone, idk how servers works!!!",
+			"message": "API для программы Факультетские часы Хогвартса",
 		})
 	})
-	r.GET("/faculties", getFaculties)
+	r.GET("/faculties", controllers.GetFaculties)
+	r.PUT("/faculties", controllers.UpdateFaculties)
+
 	r.Run()
-}
-
-func getFaculties(c *gin.Context) {
-	var faculties []models.Faculty
-	database.GetDB().Find(&faculties)
-
-	c.JSON(http.StatusOK, gin.H{"data": faculties})
 }
